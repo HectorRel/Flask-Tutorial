@@ -4,10 +4,11 @@ from models import Contact
 
 
 
-@app.route("/contacts", methods=["GET"])
-def get_contacts():
-    contacts = Contact.query.all()
-    json_contacts = list(map(lambda x:x.to_json(), contacts))
+@app.route("/contacts/<int:user_id>", methods=["GET"])
+def get_contacts(user_id):
+    contacts = Contact.query.get(user_id)
+    # json_contacts = list(map(lambda x:x.to_json(), contacts))
+    json_contacts = contacts.to_json()
     return jsonify({"contacts": json_contacts})
 
 
